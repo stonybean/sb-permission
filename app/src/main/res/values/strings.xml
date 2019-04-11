@@ -1,8 +1,3 @@
 <resources>
-    <string name="app_name">SbPermission</string>
-    <string name="denied_dialog_message">Settings</string>
-    <string name="window_dialog_message">Permit drawing over other apps</string>
-    <string name="denied_dialog_positive_button">Settings</string>
-    <string name="denied_dialog_negative_button">Close</string>
-    <string name="window_dialog_negative_button">Settings</string>
+    <string name="app_name">SBPermission</string>
 </resources>
