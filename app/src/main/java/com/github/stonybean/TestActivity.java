@@ -70,7 +70,10 @@ public class TestActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Bitmap imageBitmap = null;
+            if (extras != null) {
+                imageBitmap = (Bitmap) extras.get("data");
+            }
             imageView.setImageBitmap(imageBitmap);
         }
     }
@@ -87,7 +90,6 @@ public class TestActivity extends AppCompatActivity {
                 Log.d(TAG, "onPermissionDenied");
                 for (String deniedPermission : deniedPermissions) {
                     if (deniedPermission.equals(Manifest.permission.CAMERA)) {
-                        Log.d(TAG, "CAMERA ???????");
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
