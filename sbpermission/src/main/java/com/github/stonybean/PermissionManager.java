@@ -20,7 +20,7 @@ public class PermissionManager {
     private CharSequence deniedDialogMessage;
     private CharSequence windowDialogMessage;
 
-    PermissionManager(Context context, String listener) {
+    public PermissionManager(Context context, String listener) {
         this.context = context;
         this.listener = listener;
     }
