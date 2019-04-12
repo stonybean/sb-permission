@@ -77,11 +77,9 @@ public class PermissionCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
         permissionListener = permissionListenerList.get(getIntent().getStringExtra("LISTENER")); // permission listener
-        Log.d(TAG, "permissionListener : " + permissionListener);
         String[] permissions = getIntent().getStringArrayExtra("PERMISSIONS");             // required permission list
         showDeniedDialog = getIntent().getBooleanExtra("SET_DIALOG", false);    // set the dialog
         deniedDialogMessage = getIntent().getStringExtra("DENIAL");                        // dialog message (denial)
@@ -109,11 +107,9 @@ public class PermissionCheckActivity extends AppCompatActivity {
             requestWindowPermission(windowDialogMessage);
         } else {
             if (requiredPermissions.length > 0) {
-                Log.d(TAG, "111");
                 setDeniedDialog(showDeniedDialog, deniedDialogMessage);
                 ActivityCompat.requestPermissions(this, requiredPermissions, REQUEST_PERMISSION);
             } else {
-                Log.d(TAG, "222");
                 finish();
             }
         }
@@ -158,8 +154,6 @@ public class PermissionCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
-//        permissionListenerList.remove(permissionListener);
         super.onDestroy();
     }
 
