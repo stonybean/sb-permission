@@ -1,10 +1,8 @@
 package com.github.stonybean;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.StringRes;
 import android.util.Log;
 
 /**
@@ -44,7 +42,6 @@ public class PermissionManager {
     // Essential
     public PermissionManager setPermissionListener(PermissionListener permissionListener) {
         permissionListenerList.put(listener, permissionListener);
-        Log.d(TAG, "permissionListener = " + permissionListenerList.get(listener));
         return this;
     }
 
@@ -66,11 +63,11 @@ public class PermissionManager {
         return this;
     }
 
-    // Optional
-    public PermissionManager setDeniedDialogMessage(@StringRes int deniedDialogMessage) {
-        this.deniedDialogMessage = getText(deniedDialogMessage);
-        return this;
-    }
+//    // Optional
+//    public PermissionManager setDeniedDialogMessage(@StringRes int deniedDialogMessage) {
+//        this.deniedDialogMessage = getText(deniedDialogMessage);
+//        return this;
+//    }
 
     // Optional
     public PermissionManager setWindowDialogMessage(CharSequence windowDialogMessage){
@@ -78,17 +75,16 @@ public class PermissionManager {
         return this;
     }
 
-    // Optional
-    public PermissionManager setWindowDialogMessage(@StringRes int windowDialogMessage){
-        this.windowDialogMessage = getText(windowDialogMessage);
-        return this;
-    }
-
-    @SuppressLint("ResourceType")
-    private CharSequence getText(@StringRes int stringRes) {
-        if (stringRes <= 0) {
-            throw new IllegalArgumentException("Invalid String resource Id");
-        }
-        return context.getText(stringRes);
-    }
+//    // Optional
+//    public PermissionManager setWindowDialogMessage(@StringRes int windowDialogMessage){
+//        this.windowDialogMessage = getText(windowDialogMessage);
+//        return this;
+//    }
+//
+//    private CharSequence getText(@StringRes int stringRes) {
+//        if (stringRes <= 0) {
+//            throw new IllegalArgumentException("Invalid String resource Id");
+//        }
+//        return context.getText(stringRes);
+//    }
 }
