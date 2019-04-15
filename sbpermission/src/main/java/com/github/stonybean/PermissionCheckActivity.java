@@ -80,10 +80,11 @@ public class PermissionCheckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         permissionListener = permissionListenerList.get(getIntent().getStringExtra("LISTENER")); // permission listener
+        boolean windowPermission = getIntent().getBooleanExtra("WINDOW_PERMISSION", false);
+        String windowDialogMessage = getIntent().getStringExtra("WINDOW_DIALOG_MESSAGE");                 // dialog message (window)
         String[] permissions = getIntent().getStringArrayExtra("PERMISSIONS");             // required permission list
         showDeniedDialog = getIntent().getBooleanExtra("SET_DIALOG", false);    // set the dialog
         deniedDialogMessage = getIntent().getStringExtra("DENIAL");                        // dialog message (denial)
-        String windowDialogMessage = getIntent().getStringExtra("WINDOW");                 // dialog message (window)
 
         // check permission(s) to request
         if (permissions == null) {
@@ -103,7 +104,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
         }
 
         // check window (overlay) permission
-        if (!hasWindowPermission()) {
+        if (windowPermission && !hasWindowPermission()) {
             requestWindowPermission(windowDialogMessage);
         } else {
             if (requiredPermissions.length > 0) {
@@ -125,7 +126,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
                 requiredPermissions.add(permission);
-                Log.d(TAG, "permission = " + permission);
+                Log.d(TAG, "Required permission : " + permission);
             }
         }
         return requiredPermissions.toArray(new String[requiredPermissions.size()]);
@@ -133,7 +134,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.M)
     private boolean hasWindowPermission() {
-        return Settings.canDrawOverlays(getApplication());
+        return Settings.canDrawOverlays(getApplicationContext());
     }
 
     @TargetApi(Build.VERSION_CODES.M)

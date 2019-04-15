@@ -1,8 +1,10 @@
 package com.github.stonybean;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 /**
@@ -13,6 +15,7 @@ public class PermissionManager {
     private Context context;
     private String listener;
     private String[] permissions;
+    private boolean windowPermission;
     private PermissionListenerList permissionListenerList = PermissionListenerList.getInstance();
     private boolean showDeniedDialog;
     private CharSequence deniedDialogMessage;
@@ -32,16 +35,36 @@ public class PermissionManager {
 
         Intent intent = new Intent(context, PermissionCheckActivity.class);
         intent.putExtra("LISTENER", listener);
+        intent.putExtra("WINDOW_PERMISSION", windowPermission);
+        intent.putExtra("WINDOW_DIALOG_MESSAGE", windowDialogMessage);
         intent.putExtra("PERMISSIONS", permissions);
         intent.putExtra("SET_DIALOG", showDeniedDialog);
         intent.putExtra("DENIAL", deniedDialogMessage);
-        intent.putExtra("WINDOW", windowDialogMessage);
         context.startActivity(intent);
     }
 
     // Essential
     public PermissionManager setPermissionListener(PermissionListener permissionListener) {
         permissionListenerList.put(listener, permissionListener);
+        Log.d(TAG, "permissionListener = " + permissionListenerList.get(listener));
+        return this;
+    }
+
+    // Optional
+    public PermissionManager setWindowPermission(boolean windowPermission) {
+        this.windowPermission = windowPermission;
+        return this;
+    }
+
+    // Optional
+    public PermissionManager setWindowDialogMessage(CharSequence windowDialogMessage){
+        this.windowDialogMessage = windowDialogMessage;
+        return this;
+    }
+
+    // Optional
+    public PermissionManager setWindowDialogMessage(@StringRes int windowDialogMessage){
+        this.windowDialogMessage = getText(windowDialogMessage);
         return this;
     }
 
@@ -63,28 +86,17 @@ public class PermissionManager {
         return this;
     }
 
-//    // Optional
-//    public PermissionManager setDeniedDialogMessage(@StringRes int deniedDialogMessage) {
-//        this.deniedDialogMessage = getText(deniedDialogMessage);
-//        return this;
-//    }
-
     // Optional
-    public PermissionManager setWindowDialogMessage(CharSequence windowDialogMessage){
-        this.windowDialogMessage = windowDialogMessage;
+    public PermissionManager setDeniedDialogMessage(@StringRes int deniedDialogMessage) {
+        this.deniedDialogMessage = getText(deniedDialogMessage);
         return this;
     }
 
-//    // Optional
-//    public PermissionManager setWindowDialogMessage(@StringRes int windowDialogMessage){
-//        this.windowDialogMessage = getText(windowDialogMessage);
-//        return this;
-//    }
-//
-//    private CharSequence getText(@StringRes int stringRes) {
-//        if (stringRes <= 0) {
-//            throw new IllegalArgumentException("Invalid String resource Id");
-//        }
-//        return context.getText(stringRes);
-//    }
+    @SuppressLint("ResourceType")
+    private CharSequence getText(@StringRes int stringRes) {
+        if (stringRes <= 0) {
+            throw new IllegalArgumentException("Invalid String resource Id");
+        }
+        return context.getText(stringRes);
+    }
 }

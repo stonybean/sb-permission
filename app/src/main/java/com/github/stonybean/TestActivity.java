@@ -37,7 +37,9 @@ public class TestActivity extends AppCompatActivity {
 
         PermissionManager permissionManager = new PermissionManager(this, TAG);
         permissionManager
-//                .setPermissions(Manifest.permission.CAMERA)
+                .setWindowPermission(true)
+                .setWindowDialogMessage("다른 앱 위에 그리기 권한 허용해주세요.")
+                .setPermissions(Manifest.permission.CAMERA)
                 .setPermissionListener(permissionListener)
                 .setDeniedDialog(true)
 //                .setDeniedDialogMessage("권한 거부시 나타나는 메시지입니다.")
@@ -57,7 +59,6 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
