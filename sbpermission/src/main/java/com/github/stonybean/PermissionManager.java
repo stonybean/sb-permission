@@ -10,6 +10,7 @@ import android.util.Log;
 /**
  * Created by stonybean on 2019. 4. 11.
  */
+
 public class PermissionManager {
     private static final String TAG = PermissionManager.class.getSimpleName();
     private Context context;

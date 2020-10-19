@@ -27,6 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by stonybean on 2019. 4. 11.
  */
+
 @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
 public class PermissionCheckActivity extends AppCompatActivity {
     public static Activity activity;
