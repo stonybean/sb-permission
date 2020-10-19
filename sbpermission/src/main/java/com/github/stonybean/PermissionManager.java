@@ -40,7 +40,6 @@ public class PermissionManager {
         intent.putExtra("PERMISSIONS", permissions);
         intent.putExtra("SET_DIALOG", showDeniedDialog);
         intent.putExtra("DENIAL", deniedDialogMessage);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

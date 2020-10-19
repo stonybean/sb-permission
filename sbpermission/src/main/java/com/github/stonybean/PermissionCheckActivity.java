@@ -2,7 +2,6 @@ package com.github.stonybean;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
  */
 @TargetApi(Build.VERSION_CODES.KITKAT_WATCH)
 public class PermissionCheckActivity extends AppCompatActivity {
-    public static Activity activity;
     private static final String TAG = PermissionCheckActivity.class.getSimpleName();
     private static final int REQUEST_PERMISSION = 0;
     private static final int REQUEST_SYSTEM_ALERT_WINDOW = 1;
@@ -80,7 +78,6 @@ public class PermissionCheckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = PermissionCheckActivity.this;
 
         permissionListener = permissionListenerList.get(getIntent().getStringExtra("LISTENER")); // permission listener
         boolean windowPermission = getIntent().getBooleanExtra("WINDOW_PERMISSION", false);
@@ -90,7 +87,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
         deniedDialogMessage = getIntent().getStringExtra("DENIAL");                        // dialog message (denial)
 
         // check permission(s) to request
-        if (permissions == null || permissions.length == 0) {
+        if (permissions == null) {
             requiredPermissions = addRequiredPermissions(this, dangerousPermissions);
         } else {
             requiredPermissions = addRequiredPermissions(this, permissions);
@@ -174,14 +171,14 @@ public class PermissionCheckActivity extends AppCompatActivity {
                         }
                     }
 
-                    ArrayList<String> grantedList = new ArrayList();
-                    for (String permission : permissions) {
-                        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
-                            Log.d(TAG, "granted permission = " + permission);
-                            grantedList.add(permission);
-                        }
-                    }
-                    permissionListener.onPermissionGranted(grantedList);
+//                    ArrayList<String> grantedList = new ArrayList();
+//                    for (String permission : permissions) {
+//                        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+//                            Log.d(TAG, "granted permission = " + permission);
+//                            grantedList.add(permission);
+//                        }
+//                    }
+//                    permissionListener.onPermissionGranted(grantedList);
 
                     if (grantedNum == grantResults.length) {
                         // (all) permission was granted, yay! Do the
